@@ -1,21 +1,25 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from 'react';
+import Search from './components/Search';
+import Forecast from './components/Forecast';
+import Swiper from 'react-native-swiper';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Swiper
+      loop={false}
+      index={1}
+      paginationStyle={{
+        position: 'absolute',
+        top: -670,
+      }}
+      dotColor="white"
+      activeDotColor="grey"
+    >
+      <Search />
+      <Forecast />
+      <Forecast />
+      <Forecast />
+
+    </Swiper>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
