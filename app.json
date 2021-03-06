@@ -25,6 +25,9 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "API_KEY": "process.env.REACT_NATIVE_APP_WEATHER_API_KEY"
+    } 
   }
 }

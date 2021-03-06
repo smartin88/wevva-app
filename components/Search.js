@@ -1,37 +1,149 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { Button, Icon } from 'galio-framework';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { SearchBar } from 'react-native-elements';
-import { ImageBackground, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import { styles } from '../styles/styles';
+import AwesomeDebouncePromise from 'awesome-debounce-promise';
+import Flag from 'react-native-flags';
+import { EXPO_API_KEY } from '@env';
 
-export default function Search() {
-  const [search, setSearch] = useState(null);
+export default function Search({ savedCityList, addCity, removeCity }) {
+  const [searchResult, setSearchResult] = useState([]);
+
+  function fetchCities(string) {
+    fetch(
+      `http://api.openweathermap.org/geo/1.0/direct?q=${string}&appid=${EXPO_API_KEY}&limit=25`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setSearchResult(data);
+      });
+  }
+
+  function handleChange(textValue) {
+    fetchCities(textValue);
+  }
+
+  const debounceSearch = AwesomeDebouncePromise(handleChange, 1000);
 
   return (
-    <ImageBackground
-      source={require('../assets/background-light.png')}
-      style={styles.background}
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      keyboardShouldPersistTaps={'handled'}
     >
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <StatusBar style="auto" />
-        <View style={styles.appContainer}>
-          <SearchBar
-            onChangeText={() => {}}
-            value={search}
-            placeholder="Search for a city..."
-            containerStyle={{
-              paddingTop: 20,
-              backgroundColor: 'rgba(255,255,255,0)',
-              width: '90%',
-              borderTopWidth: 0,
-              borderBottomWidth: 0,
-            }}
-            inputContainerStyle={{ backgroundColor: 'white' }}
-            inputStyle={{ backgroundColor: 'white' }}
-          />
-        </View>
-      </ScrollView>
-    </ImageBackground>
+      <StatusBar style="auto" />
+      <View style={styles.appContainer}>
+        <SearchBar
+          lightTheme
+          placeholder="Search for a city..."
+          onChangeText={debounceSearch}
+          value={[]}
+          containerStyle={styles.searchInputContainerContainer}
+          inputContainerStyle={styles.searchInputContainer}
+          inputStyle={styles.searchInput}
+        />
+        {searchResult.length
+          ? searchResult.map((city) => {
+              return (
+                <View
+                  key={`${city.name}${city.lat}${city.lon}`}
+                  width="85%"
+                  height={60}
+                  style={styles.searchResultCard}
+                >
+                  <Text style={styles.searchResultText}>
+                    <Flag code={city.country} size={32} /> {city.name}
+                    {city.state ? ', ' + city.state : null}
+                  </Text>
+                  {savedCityList.indexOf(JSON.stringify(city)) == -1 ? (
+                    <TouchableOpacity
+                      color="#fff"
+                      size={5}
+                      style={{ position: 'absolute', right: 30 }}
+                      onPress={() => {
+                        addCity(JSON.stringify(city));
+                      }}
+                    >
+                      <Icon
+                        name="plus"
+                        family="Entypo"
+                        color="#4d4d4d"
+                        size={25}
+                      />
+                    </TouchableOpacity>
+                  ) : (
+                    <TouchableOpacity
+                      color="#fff"
+                      size={5}
+                      style={{ position: 'absolute', right: 30 }}
+                      onPress={() => {
+                        removeCity(JSON.stringify(city));
+                      }}
+                    >
+                      <Icon
+                        name="star"
+                        family="Entypo"
+                        color="#4d4d4d"
+                        size={25}
+                      />
+                    </TouchableOpacity>
+                  )}
+                </View>
+              );
+            })
+          : savedCityList
+              .map((city) => (city = JSON.parse(city)))
+              .map((city) => {
+                return (
+                  <View
+                    key={`${city.lat}${city.lon}`}
+                    width="85%"
+                    height={60}
+                    style={styles.searchResultCard}
+                  >
+                    <Text style={styles.searchResultText}>
+                      <Flag code={city.country} size={32} /> {city.name}
+                      {city.state ? ', ' + city.state : null}
+                    </Text>
+                    {savedCityList.indexOf(JSON.stringify(city)) == -1 ? (
+                      <TouchableOpacity
+                      color="#fff"
+                      size={5}
+                      style={{ position: 'absolute', right: 30 }}
+                      onPress={() => {
+                        addCity(JSON.stringify(city));
+                      }}
+                    >
+                      <Icon
+                        name="plus"
+                        family="Entypo"
+                        color="#4d4d4d"
+                        size={25}
+                      />
+                    </TouchableOpacity>
+                    ) : (
+                      <TouchableOpacity
+                      color="#fff"
+                      size={5}
+                      style={{ position: 'absolute', right: 30 }}
+                      onPress={() => {
+                        removeCity(JSON.stringify(city));
+                      }}
+                    >
+                      <Icon
+                        name="star"
+                        family="Entypo"
+                        color="#4d4d4d"
+                        size={25}
+                      />
+                    </TouchableOpacity>
+                    )}
+                  </View>
+                );
+              })}
+      </View>
+    </ScrollView>
   );
 }

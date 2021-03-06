@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
+import { withTheme } from 'react-native-elements';
 
 export const styles = StyleSheet.create({
   background: {
-    flex: 1,
+    // flex: 1,
   },
   appContainer: {
     alignItems: 'center',
@@ -42,6 +43,12 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 20,
     marginBottom: 30,
+  },
+  loadingContainer: {
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   forecastList: {
     width: '100%',
@@ -118,5 +125,32 @@ export const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: 'bold',
     padding: 5,
+  },
+  searchResultCard: {
+    width: '95%',
+    backgroundColor: 'rgba(255,255,255,0.9)',
+    paddingLeft: 20,
+    alignItems: 'center',
+    borderRadius: 5,
+    flexDirection: 'row',
+    marginTop: 5,
+    marginBottom: 5,
+    paddingBottom: 12,
+    position: 'relative',
+  },
+  searchResultText: {
+    color: '#4d4d4d',
+    fontSize: 22,
+  },
+  searchInputContainerContainer: {
+    backgroundColor: '#fff',
+    marginBottom: 20,
+  },
+  searchInputContainer: {
+    backgroundColor: '#fff',
+    width: '100%',
+  },
+  searchInput: {
+    backgroundColor: '#fff'
   },
 });

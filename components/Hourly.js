@@ -1,41 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { Text, View, ActivityIndicator } from 'react-native';
+import React from 'react';
+import { Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { styles } from '../styles/styles';
 import { format } from 'date-fns';
-import parseJSON from 'date-fns/parseJSON';
+import fromUnixTime from 'date-fns/fromUnixTime';
 import Images from '../assets/index.js';
 import LottieView from 'lottie-react-native';
-import hourlyMock from '../mocks/hourlyMock';
 
-export default function Hourly() {
-  // const { location } = props;
-  const [hourlyForecast, setHourlyForecast] = useState(
-    hourlyMock.list.slice(0, 20)
-  );
-
-  // let lat = JSON.stringify(location.coords.latitude);
-  // let lon = JSON.stringify(location.coords.longitude);
-  // Fetch Hourly Forecast
-  // fetch(
-  //   `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=ed9c1bd5a94c874b18cefd09384d9877&units=metric`
-  // )
-  //   .then((response) => response.json())
-  //   .then((data) => {
-  //     setHourlyForecast(data);
-  //   });
+export default function Hourly(props) {
+  const hourly = props.data.hourly.slice(0, 24);
 
   return (
     <>
       <Text style={styles.titleText}>Hourly Forecast</Text>
       <ScrollView showsHorizontalScrollIndicator={false} horizontal>
         <View style={styles.hourlyContainer}>
-          {hourlyForecast.map((hour, idx) => (
-            <View style={styles.hourlyComponent} key={idx}>
+          {hourly.map((hour) => (
+            <View style={styles.hourlyComponent} key={hour.dt}>
               <View>
-                <Text style={styles.hourlyText}>
-                  {format(parseJSON(hour.dt_txt), 'kk:mm')}
-                </Text>
+                <Text style={styles.hourlyText}>{format(fromUnixTime(hour.dt), 'kk:mm')}</Text>
               </View>
               <View>
                 <LottieView
@@ -46,9 +29,7 @@ export default function Hourly() {
                 />
               </View>
               <View>
-                <Text style={styles.hourlyText}>
-                  {Math.round(hour.main.temp)}°C
-                </Text>
+                <Text style={styles.hourlyText}>{Math.round(hour.temp)}°C</Text>
               </View>
             </View>
           ))}
