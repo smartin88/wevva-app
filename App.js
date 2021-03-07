@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { StatusBar } from 'expo-status-bar';
 import * as Location from 'expo-location';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Search from './components/Search';
@@ -69,6 +70,7 @@ export default function App() {
 
   return (
     <>
+    <StatusBar style="auto" />
       {isLocationLoaded && areCitiesLoaded ? (
         <Swiper
           loop={false}

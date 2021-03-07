@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, ImageBackground } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { StatusBar } from 'expo-status-bar';
 import { styles } from '../styles/styles';
 import Current from './Current';
 import Days from './Days';
@@ -10,6 +9,7 @@ import SevenDay from './SevenDay';
 import Conditions from './Conditions';
 import AirPollution from './AirPollution';
 import Loading from './Loading';
+import Map from './Map';
 import { EXPO_API_KEY } from '@env';
 
 export default function Forecast({ lat, lon, liveLocation }) {
@@ -40,10 +40,7 @@ export default function Forecast({ lat, lon, liveLocation }) {
           }
           style={styles.background}
         >
-          <ScrollView
-            showsVerticalScrollIndicator={false}
-          >
-            <StatusBar style="auto" />
+          <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.appContainer}>
               <View style={styles.container}>
                 <Current lat={lat} lon={lon} liveLocation={liveLocation} />
@@ -51,6 +48,7 @@ export default function Forecast({ lat, lon, liveLocation }) {
                 <Hourly data={onecallData} />
                 <SevenDay data={onecallData} />
                 <Conditions data={onecallData} />
+                <Map lat={lat} lon={lon} />
                 <AirPollution lat={lat} lon={lon} />
               </View>
             </View>

@@ -47,7 +47,7 @@ export default function Search({ savedCityList, addCity, removeCity }) {
         {searchResult.length
           ? searchResult.map((city) => {
               return (
-                <View
+                <TouchableOpacity
                   key={`${city.name}${city.lat}${city.lon}`}
                   width="85%"
                   height={60}
@@ -61,6 +61,7 @@ export default function Search({ savedCityList, addCity, removeCity }) {
                     <TouchableOpacity
                       color="#fff"
                       size={5}
+                      width="20%"
                       style={{ position: 'absolute', right: 30 }}
                       onPress={() => {
                         addCity(JSON.stringify(city));
@@ -77,6 +78,7 @@ export default function Search({ savedCityList, addCity, removeCity }) {
                     <TouchableOpacity
                       color="#fff"
                       size={5}
+                      width="20%"
                       style={{ position: 'absolute', right: 30 }}
                       onPress={() => {
                         removeCity(JSON.stringify(city));
@@ -90,14 +92,14 @@ export default function Search({ savedCityList, addCity, removeCity }) {
                       />
                     </TouchableOpacity>
                   )}
-                </View>
+                </TouchableOpacity>
               );
             })
           : savedCityList
               .map((city) => (city = JSON.parse(city)))
               .map((city) => {
                 return (
-                  <View
+                  <TouchableOpacity
                     key={`${city.lat}${city.lon}`}
                     width="85%"
                     height={60}
@@ -140,7 +142,7 @@ export default function Search({ savedCityList, addCity, removeCity }) {
                       />
                     </TouchableOpacity>
                     )}
-                  </View>
+                  </TouchableOpacity>
                 );
               })}
       </View>

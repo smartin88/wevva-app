@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
 import { withTheme } from 'react-native-elements';
 
 export const styles = StyleSheet.create({
@@ -48,7 +48,7 @@ export const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   forecastList: {
     width: '100%',
@@ -151,6 +151,17 @@ export const styles = StyleSheet.create({
     width: '100%',
   },
   searchInput: {
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+  },
+  mapContainer: { 
+    width: '100%', 
+    height: 300, 
+    borderRadius: 7,
+    overflow: 'hidden',
+    marginBottom: 30,
+  },  
+  map: {
+    width: '100%',
+    height: 300,
   },
 });
