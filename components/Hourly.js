@@ -7,8 +7,8 @@ import fromUnixTime from 'date-fns/fromUnixTime';
 import Images from '../assets/index.js';
 import LottieView from 'lottie-react-native';
 
-export default function Hourly(props) {
-  const hourly = props.data.hourly.slice(0, 24);
+export default function Hourly({ data }) {
+  const hourly = data.hourly.slice(0, 24);
 
   return (
     <>
@@ -18,7 +18,9 @@ export default function Hourly(props) {
           {hourly.map((hour) => (
             <View style={styles.hourlyComponent} key={hour.dt}>
               <View>
-                <Text style={styles.hourlyText}>{format(fromUnixTime(hour.dt), 'kk:mm')}</Text>
+                <Text style={styles.hourlyText}>
+                  {format(fromUnixTime(hour.dt), 'kk:mm')}
+                </Text>
               </View>
               <View>
                 <LottieView

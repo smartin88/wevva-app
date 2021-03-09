@@ -7,8 +7,8 @@ import fromUnixTime from 'date-fns/fromUnixTime';
 import Images from '../assets/index.js';
 import LottieView from 'lottie-react-native';
 
-export default function SevenDay(props) {
-  const daily = props.data.daily.slice(1, 8);
+export default function SevenDay({ data }) {
+  const daily = data.daily.slice(1, 8);
 
   return (
     <>

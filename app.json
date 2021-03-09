@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "app",
-    "slug": "app",
+    "name": "Wevva",
+    "slug": "wevva",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/background-light.png",
+      "image": "./assets/splash.png",
       "resizeMode": "cover",
       "backgroundColor": "#ffffff"
     },
@@ -20,14 +20,12 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+        "backgroundColor": "#1E80EF"
+      },
+      "package": "com.shaunmartin.wevva"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "API_KEY": "process.env.REACT_NATIVE_APP_WEATHER_API_KEY"
-    } 
+    }
   }
 }

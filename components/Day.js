@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Text, View, ActivityIndicator } from 'react-native';
-// import * as Location from 'expo-location';
 import Images from '../assets/index.js';
 import LottieView from 'lottie-react-native';
 import { styles } from '../styles/styles';
 
-export default function Day(props) {
-  const { name, icon, headline, minTemp, maxTemp } = props;
+export default function Day({ name, icon, headline, minTemp, maxTemp }) {
   return (
     <View style={styles.forecastList}>
       <View style={styles.forecastListLeft}>
@@ -20,7 +18,9 @@ export default function Day(props) {
         ) : (
           <ActivityIndicator size="small" color="#fff" />
         )}
-        <Text style={styles.forecastText}>{name} - {headline}</Text>
+        <Text style={styles.forecastText}>
+          {name} - {headline}
+        </Text>
       </View>
       <View style={styles.forecastListRight}>
         <Text style={styles.forecastText}>

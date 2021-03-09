@@ -1,15 +1,17 @@
-import { StyleSheet, Dimensions } from 'react-native';
-import { withTheme } from 'react-native-elements';
-
+import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   background: {
-    // flex: 1,
+    flex: 1,
   },
   appContainer: {
     alignItems: 'center',
     paddingTop: 80,
   },
-  container: {
+  searchContainer: {
+    alignItems: 'center',
+    paddingBottom: 40,
+  },
+  forecastContainer: {
     width: '90%',
   },
   currentContainer: {
@@ -125,6 +127,7 @@ export const styles = StyleSheet.create({
     fontSize: 17,
     fontWeight: 'bold',
     padding: 5,
+    lineHeight: 30,
   },
   searchResultCard: {
     width: '95%',
@@ -153,15 +156,21 @@ export const styles = StyleSheet.create({
   searchInput: {
     backgroundColor: '#fff',
   },
-  mapContainer: { 
-    width: '100%', 
-    height: 300, 
+  mapContainer: {
+    width: '100%',
+    height: 300,
     borderRadius: 7,
     overflow: 'hidden',
     marginBottom: 30,
-  },  
+  },
   map: {
     width: '100%',
     height: 300,
+  },
+  backButtonView: {
+    position: 'absolute',
+    top: -20,
+    left: 0,
+    zIndex: 1,
   },
 });
