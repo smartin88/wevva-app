@@ -12,29 +12,31 @@ import AirPollution from './AirPollution';
 import Loading from './Loading';
 import Map from './Map';
 import { EXPO_API_KEY_OWM } from '@env';
+import axios from 'axios';
 
 // Seperate Forecast component created specifically for searched cities, as a stack navigator passes
 // data as props.route.params instead of just props. Also layout requires a back button. Potential
 // to refactor Forecast component to compensate for both cases in future.
 
-export default function ForecastSearch(props) {
+export default function ForecastSearch({ route, navigation }) {
   const [onecallData, setOnecallData] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [icon, setIcon] = useState(null);
-  const { lat, lon, liveLocation } = props.route.params;
-  const goBack = props.navigation.goBack;
+  const { lat, lon, liveLocation } = route.params;
+  const goBack = navigation.goBack;
 
   // API call retrieves forecast data for searched location based on long/lat from Open Weather Map
   useEffect(() => {
-    fetch(
-      `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${EXPO_API_KEY_OWM}&units=metric&exclude=current,minutely`
-    )
-      .then((response) => response.json())
-      .then((data) => {
+    axios
+      .get(
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${EXPO_API_KEY_OWM}&units=metric&exclude=current,minutely`
+      )
+      .then(({ data }) => {
         setOnecallData(data);
         setIcon(data.hourly[0].weather[0].icon);
         setIsLoaded(true);
-      });
+      })
+      .catch((e) => alert('Error: ', e));
   }, []);
 
   return (

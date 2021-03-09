@@ -9,16 +9,17 @@ import { Icon } from 'galio-framework';
 import { EXPO_API_KEY_OWM } from '@env';
 import { styles } from '../styles/styles';
 import { useApp } from '../AppContext';
+import axios from 'axios';
 
 export default function SearchScreen({ navigation }) {
   const [searchResult, setSearchResult] = useState([]);
-  const [searchString, setSearchString] = useState('');
+  const [searchString, setSearchString] = useState(null);
   const { addCity, removeCity, savedCityList } = useApp();
 
   // User search string is stored in state variable searchString and call to API is debounced by 1 second
   // to avoid too many API calls
   useEffect(() => {
-    debounceSearch(searchString);
+    searchString && debounceSearch(searchString);
   }, [searchString]);
 
   const handleChange = (textValue) => {
@@ -29,13 +30,14 @@ export default function SearchScreen({ navigation }) {
     []
   );
   const fetchCities = (string) => {
-    fetch(
-      `https://api.openweathermap.org/geo/1.0/direct?q=${string}&appid=${EXPO_API_KEY_OWM}&limit=25`
-    )
-      .then((response) => response.json())
-      .then((data) => {
+    axios
+      .get(
+        `https://api.openweathermap.org/geo/1.0/direct?q=${string}&appid=${EXPO_API_KEY_OWM}&limit=25`
+      )
+      .then(({ data }) => {
         setSearchResult(data);
-      });
+      })
+      .catch((e) => alert('Error: ', e));
   };
 
   return (
@@ -84,7 +86,7 @@ export default function SearchScreen({ navigation }) {
                           style={{ position: 'absolute', right: 20 }}
                           onPress={() => {
                             addCity(JSON.stringify(city));
-                            setSearchString('');
+                            setSearchString(null);
                             setSearchResult([]);
                           }}
                         >

@@ -6,6 +6,7 @@ import Images from '../assets/index.js';
 import { styles } from '../styles/styles';
 import { Capitalize } from '../helpers';
 import { EXPO_API_KEY_OWM } from '@env';
+import axios from 'axios';
 
 export default function Current({ lat, lon, liveLocation }) {
   const [city, setCity] = useState(null);
@@ -17,19 +18,20 @@ export default function Current({ lat, lon, liveLocation }) {
   // Second API call - required to obtain current conditions which are not part of the OneCall API
   // fetched in Forecast
   useEffect(() => {
-    fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${JSON.stringify(
-        lat
-      )}&lon=${JSON.stringify(lon)}&appid=${EXPO_API_KEY_OWM}&units=metric`
-    )
-      .then((response) => response.json())
-      .then((data) => {
+    axios
+      .get(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${JSON.stringify(
+          lat
+        )}&lon=${JSON.stringify(lon)}&appid=${EXPO_API_KEY_OWM}&units=metric`
+      )
+      .then(({ data }) => {
         setCity(data.name);
         setHeadline(Capitalize(data.weather[0].description));
         setTemp(Math.round(data.main.temp));
         setIcon(data.weather[0].icon);
         setIsLoaded(true);
-      });
+      })
+      .catch((e) => alert('Error: ', e));
   }, []);
 
   // Renders location-pin icon which only displays when forecast page is based on the user's live

@@ -11,18 +11,20 @@ import {
   measurePM25,
   measurePM10,
 } from '../helpers';
+import axios from 'axios';
 
 export default function AirPollution({ lat, lon }) {
   const [airPollution, setAirPollution] = useState(null);
 
   useEffect(() => {
-    fetch(
-      `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${EXPO_API_KEY_OWM}`
-    )
-      .then((response) => response.json())
-      .then((data) => {
+    axios
+      .get(
+        `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${EXPO_API_KEY_OWM}`
+      )
+      .then(({ data }) => {
         setAirPollution(data.list[0]);
-      });
+      })
+      .catch((e) => alert('Error: ', e));
   }, []);
 
   return (

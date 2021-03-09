@@ -27,7 +27,8 @@ export default function Conditions({ data }) {
   //     .then(({ data }) => {
   //       setPollenData(data);
   //       console.log(data);
-  //     });
+  //     })
+  //     .catch((e) => alert('Error: ', e));
   // }, []);
 
   return (

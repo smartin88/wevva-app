@@ -11,6 +11,7 @@ import AirPollution from './AirPollution';
 import Loading from './Loading';
 import Map from './Map';
 import { EXPO_API_KEY_OWM } from '@env';
+import axios from 'axios';
 
 export default function Forecast({ lat, lon, liveLocation }) {
   const [onecallData, setOnecallData] = useState(null);
@@ -20,15 +21,16 @@ export default function Forecast({ lat, lon, liveLocation }) {
   // API call retrieves forecast data for location based on long/lat from Open Weather Map (live or
   // saved location)
   useEffect(() => {
-    fetch(
-      `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${EXPO_API_KEY_OWM}&units=metric&exclude=current,minutely`
-    )
-      .then((response) => response.json())
-      .then((data) => {
+    axios
+      .get(
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${EXPO_API_KEY_OWM}&units=metric&exclude=current,minutely`
+      )
+      .then(({ data }) => {
         setOnecallData(data);
         setIcon(data.hourly[0].weather[0].icon);
         setIsLoaded(true);
-      });
+      })
+      .catch((e) => alert('Error: ', e));
   }, []);
 
   return (
