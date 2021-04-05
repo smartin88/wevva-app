@@ -16,7 +16,7 @@ Wevva is a cross-platform smartphone app built with React Native. It can be used
 
 
 
-### Installation 
+### Installation 💻
 
 To run the app locally:
 
