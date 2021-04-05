@@ -6,7 +6,7 @@
 
 
 
-<div style="text-align:center"><img src="./assets/wevva-screenshot.png" alt="wevva-screenshot" style="zoom:35%;" /><img src="./assets/wevva-screenshot-2.png" alt="wevva-screenshot" style="zoom:35%;" /></div>
+<div style="text-align:center"><img src="./assets/wevva-screenshot.png" alt="wevva-screenshot" style="zoom:5%;" /><img src="./assets/wevva-screenshot-2.png" alt="wevva-screenshot" style="zoom:5%;" /></div>
 
 
 
