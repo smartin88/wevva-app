@@ -12,7 +12,7 @@
 
 ### About 📱
 
-Wevva is a cross-platform smartphone app built with React Native. It can be used for checking weather, pollen and air quality forecasts both in your local area and anywhere else in the world. 
+Wevva is a cross-platform smartphone app built with React Native. It can be used for checking the weather, pollen and air quality forecasts both in your local area and anywhere else in the world. 
 
 
 
@@ -26,7 +26,7 @@ To run the app locally:
 
 2. Fork and clone this repo
 
-3. Run `npm install` from the main folder to install dependencies
+3. Run `npm install` in the main folder to install dependencies
 
 4. Obtain an API key from <a href="https://openweathermap.org/">OpenWeatherMap.org</a> and place it into a .env file in the main folder
 
