@@ -1,4 +1,4 @@
-![W](/Users/shaunmartin/Documents/Codeworks/Solo Project/wevva-app/app/assets/W.png)
+![W](./assets/W.png)
 
 
 
